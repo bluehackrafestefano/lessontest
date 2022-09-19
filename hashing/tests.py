@@ -1,12 +1,18 @@
 from selenium import webdriver
 from django.test import TestCase
 import time
+from .forms import HashForm
 
 
-class UnitTestCase():
-    pass
+class UnitTestCase(TestCase):
 
+    def test_home_template_rendering(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'hashing/home.html')
 
+    def test_hash_form(self):
+        form = HashForm(data={'text':'hello'})
+        self.assertTrue(form.is_valid())
 
 
 # class FunctionalTestCase(TestCase):
